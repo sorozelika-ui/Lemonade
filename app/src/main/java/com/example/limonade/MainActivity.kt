@@ -47,6 +47,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 @Composable
 fun LimonadeApp(modifier: Modifier = Modifier) {
 
@@ -78,7 +79,6 @@ fun LimonadeApp(modifier: Modifier = Modifier) {
     ) {
 
         // TITRE FIXE
-
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -110,22 +110,22 @@ fun LimonadeApp(modifier: Modifier = Modifier) {
 
                     when (level) {
 
-                        // Étape 1 : cliquer sur le citron
+                        // Étape 1 : passer du citronnier au citron
                         1 -> {
                             level = 2
                         }
 
-                        // Étape 2 : presser le citron
+                        // Étape 2 : passer du citron à la limonade
                         2 -> {
-                            level = 2
+                            level = 3
                         }
 
-                        // Étape 3 : boire la citronnade
+                        // Étape 3 : boire la limonade
                         3 -> {
                             level = 4
                         }
 
-                        // Étape 4 : recommencer
+                        // Étape 4 : recommencer le processus
                         4 -> {
                             level = 1
                             nbclic = 0
