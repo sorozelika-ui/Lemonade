@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,13 +45,14 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun LimonadeApp(modifier: Modifier = Modifier) {
 
-    // Niveau actuel de l'application
+    // app niveau zero
     var level by remember { mutableStateOf(1) }
 
     // Nombre de clics sur le citron
     var nbclic by remember { mutableStateOf(0) }
 
-    // Image affichée selon le niveau
+    // Image affichée selon le level
+
     val imageResource = when (level) {
         1 -> R.drawable.lemon_tree
         2 -> R.drawable.lemon_squeeze
@@ -57,14 +60,21 @@ fun LimonadeApp(modifier: Modifier = Modifier) {
         else -> R.drawable.lemon_restart
     }
 
-    // Texte affiché selon le niveau
+    // Texte affiché selon le level
+
     val chaine_extrait = when (level) {
         1 -> R.string.Tap_the_lemon_tree_to_select_a_lemon
         2 -> R.string.Keep_tapping_the_lemon_to_squeeze_it
         3 -> R.string.Tap_the_lemonade_to_drink_it
         else -> R.string.Tap_the_empty_glass_to_start_again
     }
-
+    // TITRE FIXE
+    Text(
+        text = stringResource(R.string.lemonade),
+        fontSize = 28.sp,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(top = 24.dp, bottom = 16.dp)
+    )
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -77,7 +87,7 @@ fun LimonadeApp(modifier: Modifier = Modifier) {
 
                 when (level) {
 
-                    // Étape 1 : sélectionner un citron
+                    // Étape 1 : cliquer un citron
                     1 -> {
                         level = 2
                     }
@@ -108,13 +118,15 @@ fun LimonadeApp(modifier: Modifier = Modifier) {
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        // Texte de l'étape actuelle
+        // Texte
         Text(
             text = stringResource(chaine_extrait),
             fontSize = 18.sp
         )
     }
 }
+
+//affichage du preview
 
 @Preview(showBackground = true)
 @Composable
