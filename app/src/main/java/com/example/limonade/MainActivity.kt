@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -46,18 +47,16 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
 @Composable
 fun LimonadeApp(modifier: Modifier = Modifier) {
 
-    // app niveau zero
+    // Niveau de l'application
     var level by remember { mutableStateOf(1) }
 
     // Nombre de clics sur le citron
     var nbclic by remember { mutableStateOf(0) }
 
     // Image affichée selon le level
-
     val imageResource = when (level) {
         1 -> R.drawable.lemon_tree
         2 -> R.drawable.lemon_squeeze
@@ -66,76 +65,95 @@ fun LimonadeApp(modifier: Modifier = Modifier) {
     }
 
     // Texte affiché selon le level
-
     val chaine_extrait = when (level) {
         1 -> R.string.Tap_the_lemon_tree_to_select_a_lemon
         2 -> R.string.Keep_tapping_the_lemon_to_squeeze_it
         3 -> R.string.Tap_the_lemonade_to_drink_it
         else -> R.string.Tap_the_empty_glass_to_start_again
     }
-    // TITRE FIXE
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.Yellow)
-            .padding(vertical = 16.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = stringResource(R.string.lemonade),
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
-        )
-    }
+
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Image cliquable
-        Image(
-            painter = painterResource(imageResource),
-            contentDescription = null,
-            modifier = Modifier.clickable {
 
-                when (level) {
+        // =========================
+        // TITRE FIXE
+        // =========================
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Yellow)
+                .padding(vertical = 16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = stringResource(R.string.lemonade),
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
+        }
 
-                    // Étape 1 : cliquer un citron
-                    1 -> {
-                        level = 2
-                    }
+        // =========================
+        // CONTENU QUI CHANGE
+        // =========================
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
 
-                    // Étape 2 : presser le citron
-                    2 -> {
-                        nbclic++
+            // Image cliquable
+            Image(
+                painter = painterResource(imageResource),
+                contentDescription = null,
+                modifier = Modifier.clickable {
 
-                        if (nbclic >= 4) {
-                            level = 3
+                    when (level) {
+
+                        // Étape 1 : cliquer sur le citron
+                        1 -> {
+                            level = 2
+                        }
+
+                        // Étape 2 : presser le citron
+                        2 -> {
+                            nbclic++
+
+                            if (nbclic >= 4) {
+                                level = 3
+                            }
+                        }
+
+                        // Étape 3 : boire la citronnade
+                        3 -> {
+                            level = 4
+                        }
+
+                        // Étape 4 : recommencer
+                        4 -> {
+                            level = 1
+                            nbclic = 0
                         }
                     }
-
-                    // Étape 3 : boire la citronnade
-                    3 -> {
-                        level = 4
-                    }
-
-                    // Étape 4 : recommencer
-                    4 -> {
-                        level = 1
-                        nbclic = 0
-                    }
                 }
-            }
-        )
-        // Espace entre le texte et l'image
-        Spacer(
-            modifier = Modifier.height(16.dp)
-        )
-        // Texte
-        Text(
-            text = stringResource(chaine_extrait),
-            fontSize = 18.sp
-        )
+            )
+
+            // Espace entre l'image et le texte
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+
+            // Texte
+            Text(
+                text = stringResource(chaine_extrait),
+                fontSize = 18.sp,
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }
 
