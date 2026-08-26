@@ -117,11 +117,7 @@ fun LimonadeApp(modifier: Modifier = Modifier) {
 
                         // Étape 2 : presser le citron
                         2 -> {
-                            nbclic++
-
-                            if (nbclic >= 4) {
-                                level = 3
-                            }
+                            level = 2
                         }
 
                         // Étape 3 : boire la citronnade
