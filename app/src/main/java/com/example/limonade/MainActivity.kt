@@ -47,6 +47,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 @Composable
 fun LimonadeApp(modifier: Modifier = Modifier) {
 
@@ -77,9 +78,7 @@ fun LimonadeApp(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        // =========================
         // TITRE FIXE
-        // =========================
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -95,9 +94,6 @@ fun LimonadeApp(modifier: Modifier = Modifier) {
             )
         }
 
-        // =========================
-        // CONTENU QUI CHANGE
-        // =========================
         Column(
             modifier = Modifier
                 .fillMaxWidth()
